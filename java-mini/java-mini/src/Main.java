@@ -26,5 +26,23 @@ public class Main {
             System.out.println(s.getName() + " avg=" + app.averageRating(s.getId()));
         }
 
+        System.out.println("== exception tests ==");
+
+// (1) 중복 store id
+        try {
+            app.addStore(new Store(1, "중복가게", "한식"));
+            System.out.println("ERROR: duplicate store test failed");
+        } catch (IllegalArgumentException e) {
+            System.out.println("OK duplicate store: " + e.getMessage());
+        }
+
+// (2) 없는 storeId에 리뷰 등록
+        try {
+            app.addReview(new Review(99, 999, "nope", 5, "없는 가게"));
+            System.out.println("ERROR: missing store test failed");
+        } catch (IllegalArgumentException e) {
+            System.out.println("OK missing store: " + e.getMessage());
+        }
+
     }
 }
